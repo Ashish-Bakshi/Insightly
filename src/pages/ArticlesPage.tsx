@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Articles:React.FC = () => {
+const ArticlesPage:React.FC = () => {
   return (
     <div>Articles</div>
   )
 }
 
-export default Articles
+export default ArticlesPage

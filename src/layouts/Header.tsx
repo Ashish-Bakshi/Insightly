@@ -33,12 +33,7 @@ const Header: React.FC = () => {
           >
             Articles
           </Link>
-          {/* <Link
-            to="/categories"
-            className="text-gray-700 hover:text-indigo-600 transition-colors duration-200"
-          >
-            Categories
-          </Link> */}
+
           <Link
             to="/about"
             className="text-gray-700 hover:text-indigo-600 transition-colors duration-200"
@@ -83,35 +78,34 @@ const Header: React.FC = () => {
               if (window.location.pathname === "/") {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
+              setIsOpen(false)
             }}
+            // onClick={() => setIsOpen(false)}
           >
             Home
           </Link>
           <Link
             to="/articles"
             className="block text-gray-700 hover:text-indigo-600"
+            onClick={() => setIsOpen(false)}
           >
             Articles
           </Link>
-          {/* <Link
-            to="/categories"
-            className="block text-gray-700 hover:text-indigo-600"
-          >
-            Categories
-          </Link> */}
+          
           <Link
             to="/about"
             className="block text-gray-700 hover:text-indigo-600"
+            onClick={() => setIsOpen(false)}
           >
             About
           </Link>
           <div className="pt-2 flex flex-col space-y-2">
-            <Link to="/signup">
+            <Link to="/signup" onClick={() => setIsOpen(false)}>
               <button className="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
                 Sign up
               </button>
             </Link>
-            <Link to="/login">
+            <Link to="/login" onClick={() => setIsOpen(false)}>
               <button className="w-full text-indigo-600 bg-white border border-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50">
                 Log in
               </button>

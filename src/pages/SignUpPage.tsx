@@ -1,75 +1,3 @@
-// import React from "react";
-// import { useForm } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import * as Yup from "yup";
-
-// const signUpSchema = Yup.object().shape({
-//   name: Yup.string().required("Name is required"),
-//   email: Yup.string().email("Invalid email").required("Email is required"),
-//   password: Yup.string().min(6).required("Password is required"),
-//   confirmPassword: Yup.string()
-//     .oneOf([Yup.ref("password")], "Passwords must match")
-//     .required("Confirm your password"),
-// });
-
-// interface SignUpForm {
-//   name: string;
-//   email: string;
-//   password: string;
-//   confirmPassword: string;
-// }
-
-// const SignUp: React.FC = () => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm<SignUpForm>({ resolver: yupResolver(signUpSchema) });
-
-//   const onSubmit = (data: SignUpForm) => {
-//     console.log("Registering User:", data);
-//     // Register user with API
-//   };
-
-//   return (
-//     <div className="max-w-md mx-auto p-6 shadow-lg rounded-lg mt-10">
-//       <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-//       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-//         <div>
-//           <label>Name</label>
-//           <input {...register("name")} className="w-full p-2 border rounded" />
-//           {errors.name && <p className="text-red-600 text-sm">{errors.name.message}</p>}
-//         </div>
-//         <div>
-//           <label>Email</label>
-//           <input {...register("email")} className="w-full p-2 border rounded" />
-//           {errors.email && <p className="text-red-600 text-sm">{errors.email.message}</p>}
-//         </div>
-//         <div>
-//           <label>Password</label>
-//           <input {...register("password")} type="password" className="w-full p-2 border rounded" />
-//           {errors.password && <p className="text-red-600 text-sm">{errors.password.message}</p>}
-//         </div>
-//         <div>
-//           <label>Confirm Password</label>
-//           <input
-//             {...register("confirmPassword")}
-//             type="password"
-//             className="w-full p-2 border rounded"
-//           />
-//           {errors.confirmPassword && (
-//             <p className="text-red-600 text-sm">{errors.confirmPassword.message}</p>
-//           )}
-//         </div>
-//         <button type="submit" className="w-full py-2 bg-indigo-600 text-white rounded">
-//           Register
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default SignUp;
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -84,7 +12,7 @@ import {
   Check,
 } from "lucide-react";
 
-const SignUp = () => {
+const SignUpPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -466,4 +394,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

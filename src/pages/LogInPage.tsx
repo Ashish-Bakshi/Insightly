@@ -10,7 +10,7 @@ import {
   Loader2,
 } from "lucide-react";
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -227,4 +227,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
