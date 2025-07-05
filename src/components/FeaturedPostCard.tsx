@@ -34,6 +34,7 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({
       {/* Content Right */}
       <div className="md:w-1/2 bg-violet-50 p-6 flex flex-col justify-center rounded-r-xl">
         {/* Tags */}
+        <div className="flex items-center">
         <div className="flex gap-2 pb-3">
           {tags.map((tag, index) => (
             <span
@@ -43,7 +44,9 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({
               {tag}
             </span>
           ))}
-        </div>
+          <span className="text-indigo-600 px-3 py-1 rounded-full text-sm font-bold">Featured</span>
+          </div>
+        </div> 
 
         {/* Title */}
         <h2 className="text-3xl font-bold text-gray-900 mb-3 text-start">

@@ -23,12 +23,12 @@ const BlogCard: React.FC<BlogCardProps> = ({
     <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition duration-300 max-w-sm">
       <div className="relative">
         <img src={image} alt={title} className="w-full h-48 object-cover" />
-        <span className="absolute top-2 left-2 bg-white text-gray-700 text-xs font-medium px-2 py-1 rounded">
+        <span className="absolute top-2 left-2 bg-white text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
           {tag}
         </span>
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+        <h3 className="text-xl text-gray-900 font-bold">{title}</h3>
         <p className="text-sm text-gray-600 mt-1">{description}</p>
         <div className="flex items-center justify-between text-sm text-gray-500 mt-4">
           <div className="flex items-center gap-1">

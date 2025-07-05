@@ -185,7 +185,7 @@ const LandingPage: React.FC = () => {
           <div className="py-10">
             <FeaturedPostCard
               image="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600"
-              tags={["Technology", "Innovation"]}
+              tags={["Technology" ]}
               title="The Future of AI: Transforming Industries"
               description="Explore how artificial intelligence is revolutionizing various sectors and what it means for the future."
               author="Jane Smith"
@@ -219,6 +219,9 @@ const LandingPage: React.FC = () => {
               />
             </div>
           </div>
+          <Link to="/articles">
+          <button className="bg-gray-100 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors duration-200 cursor-pointer">View All Articles</button>
+          </Link>
         </div>
       </section>
 

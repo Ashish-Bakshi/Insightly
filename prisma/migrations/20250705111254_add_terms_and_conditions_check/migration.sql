@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "agreedToTerms" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "termsAcceptedAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP;
