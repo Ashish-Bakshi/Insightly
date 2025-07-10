@@ -9,6 +9,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import NotFoundPage from "./pages/NotFoundPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import TermsAndConditionsPage from "./pages/TermsAndConditionsPage"
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage"
+
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -18,11 +21,13 @@ function App() {
       <ScrollToTop />
       <Layout>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/articles" element={<ArticlesPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<LogInPage />} />
+          <Route path="/" element={ <LandingPage/> } />
+          <Route path="/articles" element={ <ArticlesPage/> } />
+          <Route path="/about" element={ <AboutPage/> } />
+          <Route path="/signup" element={ <SignUp/> } />
+          <Route path="/login" element={ <LogInPage/> } />
+          <Route path="/terms" element={ <TermsAndConditionsPage/> } />
+          <Route path="/privacy" element={ <PrivacyPolicyPage/> } />
           <Route
             path="/dashboard"
             element={
@@ -31,7 +36,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={ <NotFoundPage/> } />
         </Routes>
       </Layout>
     </>
