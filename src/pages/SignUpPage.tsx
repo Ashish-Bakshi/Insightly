@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import {
   Mail,
   Lock,
@@ -11,20 +11,24 @@ import {
   User,
   Check,
 } from "lucide-react";
+import signUpAuthHandler from "../auth/signUpAuth"; // Importing the signUpAuth function
+import toast from "react-hot-toast";// Importing Toaster for notifications
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
+    agreedToTerms: false,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  // const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -45,18 +49,27 @@ const SignUpPage = () => {
       return;
     }
 
-    if (!agreedToTerms) {
+    if (!formData.agreedToTerms) {
       setError("Please agree to the terms and conditions");
       setLoading(false);
       return;
     }
 
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      // Handle sign up logic here
-      console.log("Sign up:", formData);
-    }, 1500);
+    try {
+    const res = await signUpAuthHandler(formData);
+    if (res) {
+      toast.success("Signed up successfully!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500); // delay 1.5 seconds
+    }
+  } catch (error) {
+    console.error("Signup error:", error);
+    toast.error("Signup failed. Please try again.");
+    setError("An error occurred while signing up.");
+  } finally {
+    setLoading(false);
+  }
   };
 
   const passwordStrength = (password: string) => {
@@ -283,10 +296,10 @@ const SignUpPage = () => {
               <div className="flex items-center h-5">
                 <input
                   id="terms"
-                  name="terms"
+                  name="agreedToTerms"
                   type="checkbox"
-                  checked={agreedToTerms}
-                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  checked={formData.agreedToTerms}
+                  onChange={(e) => setFormData({ ...formData, agreedToTerms: e.target.checked })}
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
               </div>
@@ -314,7 +327,7 @@ const SignUpPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 cursor-pointer"
             >
               {loading ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
