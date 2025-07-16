@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
 export const userSignUpHandler = async (req, res) => {
+  console.log('Signup route hit');
   try {
     const { firstName, lastName, email, password, agreedToTerms } = req.body; // descrutcturing user data
 
