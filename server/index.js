@@ -11,7 +11,7 @@ startServer();
 app.use(express.json()); // parse JSON bodies
 app.use(cookieParser()); // parse cookies
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "https://insightly-chi.vercel.app", // Replace with your frontend URL
+  origin: "https://insightly-chi.vercel.app", // Replace with your frontend URL
   credentials: true
 }));
 
