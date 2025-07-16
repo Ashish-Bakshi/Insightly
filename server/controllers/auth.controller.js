@@ -1,6 +1,5 @@
-import express from "express";
 import prisma from "../utils/prisma.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
 export const userSignUpHandler = async (req, res) => {
@@ -118,7 +117,7 @@ export const userLoginHandler = async (req, res) => {
     }
 
     // If password is correct, generate a token for the user
-    const token = generateToken({ userId: user.id, email: user.email });
+    const token = generateToken({ id: user.id, email: user.email });
 
     // If user login is successful, return success message and user data
     res.cookie("token", token, {
@@ -163,9 +162,10 @@ export const userLogoutHandler = async (req, res) => {
 
 export const getUserHandler = async (req, res) => {
   try {
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: req.user.id },
       select: {
+        id: true,
         firstName: true,
         lastName: true,
         email: true,
@@ -178,10 +178,9 @@ export const getUserHandler = async (req, res) => {
         message: "User not found",
       });
     }
-
     res.status(200).json(user);
   } catch (error) {
-    console.error("Error fetching user:", err);
+    console.error("Error fetching user:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
