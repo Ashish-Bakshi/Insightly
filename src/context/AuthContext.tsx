@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import type { User } from "../types";
 import { getUser } from "../auth/getUser";
-// import axios from 'axios'
+
 interface AuthContextType {
   user: User | null;
   loading: boolean;
@@ -9,43 +9,41 @@ interface AuthContextType {
   logout: () => void;
 }
 
-
-// Create context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Provider component
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [user, setUser] = useState<User | null>(null); // null if not logged in
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Persist login with localStorage
   useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      } else {
-        const data = await getUser();
-        if (data && data.user) {
-          setUser(data.user);
-          localStorage.setItem("user", JSON.stringify(data.user));
+    const fetchUser = async () => {
+      try {
+        const storedUser = localStorage.getItem("user");
+
+        if (storedUser) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+          console.log("Loaded from localStorage:", parsedUser);
+        } else {
+          const data = await getUser(); // from server (cookie-based)
+          console.log("Fetched from backend:", data);
+
+          if (data) {
+            setUser(data);
+            localStorage.setItem("user", JSON.stringify(data));
+          }
         }
+      } catch (error) {
+        console.error("Auto-auth failed:", error);
+        localStorage.removeItem("user");
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Auto-auth failed:", error);
-      localStorage.removeItem("user");
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchUser();
-}, []);
-
+    fetchUser();
+  }, []);
 
   const login = (userData: User) => {
     setUser(userData);
@@ -55,6 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    // Optionally: call your backend logout route to clear cookie
   };
 
   return (
@@ -64,7 +63,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-// Hook to use context
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) throw new Error("useAuth must be used within an AuthProvider");

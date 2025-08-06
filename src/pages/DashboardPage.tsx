@@ -19,19 +19,13 @@ import {
   Bookmark,
   Share2
 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const DashboardPage:React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const { user } = useAuth()
 
-  // Mock user data - replace with actual user context/API
-  const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john@example.com',
-    avatar: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=150',
-    joinDate: '2024-01-15',
-    isVerified: true
-  };
+  console.log(user)
 
   // Mock reading statistics
   const stats = {
@@ -110,14 +104,9 @@ const DashboardPage:React.FC = () => {
               <div className="relative">
                 <img
                   src={user.avatar}
-                  alt={`${user.firstName} ${user.lastName}`}
+                  alt={`${user.firstName.charAt(0)}`}
                   className="w-20 h-20 rounded-full object-cover ring-4 ring-indigo-100"
                 />
-                {user.isVerified && (
-                  <div className="absolute -bottom-1 -right-1 bg-green-500 text-white rounded-full p-1">
-                    <Award className="h-4 w-4" />
-                  </div>
-                )}
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -128,7 +117,7 @@ const DashboardPage:React.FC = () => {
                 </p>
                 <div className="flex items-center text-sm text-gray-500">
                   <Calendar className="h-4 w-4 mr-1" />
-                  Member since {new Date(user.joinDate).toLocaleDateString('en-US', { 
+                  Member since {new Date(user.createdAt).toLocaleDateString('en-US', { 
                     month: 'long', 
                     year: 'numeric' 
                   })}

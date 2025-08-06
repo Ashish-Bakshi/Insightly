@@ -23,7 +23,7 @@ const Header: React.FC = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6">
           <Link
-            to="/"
+            to={user ? "/dashboard" : "/"}
             className="text-gray-700 hover:text-indigo-600 transition-colors duration-200"
             onClick={() => {
               if (window.location.pathname === "/") {
